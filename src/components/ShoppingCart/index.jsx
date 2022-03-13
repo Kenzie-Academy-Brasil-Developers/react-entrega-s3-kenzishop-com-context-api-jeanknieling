@@ -1,18 +1,21 @@
 import formatValue from "../../utils/formatValue";
 import { CartContainer } from "./style";
 
-import { useCart } from "../../providers/Cart";
-
 const ShoppingCart = () => {
-  const { cartProducts } = useCart();
+  const localStorageCartProducts = JSON.parse(
+    localStorage.getItem("@KenzieShop:productsCart")
+  );
 
-  const totalPrice = cartProducts.reduce((acc, curr) => acc + curr.price, 0);
+  const totalPrice = localStorageCartProducts.reduce(
+    (acc, curr) => acc + curr.price,
+    0
+  );
 
   return (
     <CartContainer>
       <h2>Resumo do pedido</h2>
       <div>
-        <p>{cartProducts.length} Produtos</p>
+        <p>{localStorageCartProducts.length} Produtos</p>
         <span>{formatValue(totalPrice)}</span>
       </div>
       <button>Finalizar pedido</button>
